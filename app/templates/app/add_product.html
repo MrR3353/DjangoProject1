@@ -1,0 +1,29 @@
+{% extends "app/layout.html" %}
+
+{% block add_product %}
+<strong><u>
+{% endblock %}
+{% block add_product_end %}
+</u></strong>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% for product in products %}
+<hr/>
+<div class="">
+    <h2> {{product.title}} </h2>
+    {% if product.image and product.image.url != '/media/temp.jpg' %}
+        <img src="{{ product.image.url }}" alt=" Картинка статьи блога"  width="300" height="200"/>
+    {% endif %}
+    <h4> {{product.price}} </h4>
+    <p> {{product.description}} </p>
+    <img src="{{product.image}}" alt="">
+    <a href="{% url 'del_product' product.id %}" class="btn btn-outline-danger">Удалить</a>
+</div>
+{% endfor %}
+
+<br>
+<a href="{% url 'create_product' %}" class="btn btn-success">Добавить новую услугу</a>
+{% endblock %}

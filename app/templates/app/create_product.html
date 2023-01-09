@@ -1,0 +1,34 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+{% load static %}
+
+<br>
+<br>
+
+<!--  <div class="form-floating mb-3">-->
+<!--    <input type="text" class="form-control" name="title" id="floatingTitle" placeholder="Title">-->
+<!--    <label for="floatingTitle">Title</label>-->
+<!--  </div>-->
+<!--  <div class="form-floating">-->
+<!--    <input type="number" class="form-control" name="price" id="floatingPrice" placeholder="Price">-->
+<!--    <label for="floatingPrice">Price</label>-->
+<!--  </div>-->
+<!--  <div class="input-group">-->
+<!--          <textarea class="form-control" name="description" id="floatingDesc" aria-label="With textarea" style="height: 38px;"></textarea>-->
+<!--          <span class="input-group-text">Description</span>-->
+<!--  </div>-->
+    <div>
+       <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+           {{ prodform.as_p}}
+           <button type="submit" class="save btn btn-default"> Создать товар </button>
+        </div>
+       </form>
+    </div>
+
+
+
+
+{% endblock %}

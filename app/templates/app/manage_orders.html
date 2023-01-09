@@ -1,0 +1,47 @@
+{% extends "app/layout.html" %}
+
+{% block manage_orders %}
+<strong><u>
+{% endblock %}
+{% block manage_orders_end %}
+</u></strong>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% for order in orders %}
+<div>
+    <h2>
+    {% for product in products_all %}
+        {% if product.pk == order.product_id %}
+            {{product.title}}
+        {% endif %}
+    {% endfor %}
+    </h2>
+    {% for user in users_all %}
+        {% if user.pk == order.user_id %}
+           Заказал: {{ user.username }}
+        {% endif %}
+    {% endfor %}
+    <h4> Количество: {{order.count}} </h4>
+    <p> Цена: {{order.price}}</p>
+
+    <div class="mb-3">
+          Статус:
+          <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="location = this.value;">
+<!--            <option selected="{{order.status}}">{{order.status}}</option>-->
+              <option  {% if order.status == 'заказано' %} selected {% endif %} value="{% url 'change_order' order.id 'заказано' %}">заказано</option>
+              <option {% if order.status == 'выполнено' %} selected {% endif %} value="{% url 'change_order' order.id 'выполнено' %}">выполнено</option>
+              <option {% if order.status == 'удалено' %} selected {% endif %} value="{% url 'change_order' order.id 'удалено' %}">удалено</option>
+          </select>
+    </div>
+
+</div>
+<hr/>
+{% endfor %}
+<a href="">Сохранить</a>
+
+<h2>Итого: {{total}} </h2>
+
+{% endblock %}

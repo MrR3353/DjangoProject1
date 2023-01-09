@@ -1,0 +1,12 @@
+.emloyer_img {
+  display: inline-block;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.emloyer_img img {
+  max-width: 100%; /* Максимальная ширина картинки */
+  min-height: 100%; /* Минимальная высота картинки */
+  object-fit: cover; /* Всю, выше указанную, облась заполнить картинкой */
+}

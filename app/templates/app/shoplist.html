@@ -1,0 +1,67 @@
+{% extends "app/layout.html" %}
+
+{% block shoplist %}
+<strong><u>
+{% endblock %}
+{% block shoplist_end %}
+</u></strong>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+{% for product in shoplist %}
+<div>
+    <h2>
+    {% for p in products_all %}
+        {% if p.pk == product.product_id %}
+            {{p.title}}
+            {% if p.image and p.image.url != '/media/temp.jpg' %}
+                <img src="{{ p.image.url }}" alt=" Картинка статьи блога"  width="300" height="200"/>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </h2>
+        <a href="{% url 'catalog' product.product_id 0 product.employer_id %}"><img src="{% static 'app/content/patch-minus.svg' %}" alt=""></a>
+        <h4> {{product.count}} </h4>
+        <a href="{% url 'catalog' product.product_id 1 product.employer_id %}"><img src="{% static 'app/content/patch-plus-fill.svg' %}" alt=""></a>
+    <p>Цена: {{product.price}}</p>
+    <p> Мастер:
+        {% for employer in employers %}
+            {% if employer.id == product.employer_id %}
+                {{employer.name}}
+            {% endif %}
+        {% endfor %}
+<!--    {{product.employer_id}}-->
+    </p>
+</div>
+<hr/>
+{% endfor %}
+
+{% if shoplist %}
+<a href="{% url 'make_order' %}">Оплатить {{ total }} руб.</a>
+{% endif %}
+
+{% endblock %}
+
+<!--    <form action="{% url 'catalog' product.pk 1 %}">-->
+<!--        <h2> {{product.title}} </h2>-->
+
+<!--        {% if product.image and product.image.url != '/media/temp.jpg' %}-->
+<!--        <img src="{{ product.image.url }}" alt=" Картинка статьи блога"  width="300" height="200"/>-->
+<!--        {% endif %}-->
+
+<!--        <h4> {{product.price}} ₽ </h4>-->
+<!--        <p> {{product.description}} </p>-->
+<!--        <img src="{{product.image}}" alt="">-->
+<!--        <select name="dropdown" class="form-select form-select-sm" aria-label=".form-select-sm example">-->
+<!--            {% for employer in employers %}-->
+<!--                <option value="{{employer.id}}">{{employer.name}}</option>-->
+<!--            {% endfor %}-->
+<!--        </select>-->
+<!--        {% if user.is_authenticated %}-->
+<!--        <button type="submit">Купить</button>-->
+<!--&lt;!&ndash;            <a href="{% url 'catalog' product.pk 1 %}" class="btn btn-success">Купить</a>&ndash;&gt;-->
+<!--        {% endif %}-->
+<!--    </form>-->

@@ -1,0 +1,39 @@
+{% extends "app/layout.html" %}
+
+{% block catalog %}
+<strong><u>
+{% endblock %}
+{% block catalog_end %}
+</u></strong>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% for product in products %}
+<div>
+    <form action="{% url 'catalog' product.pk 1 %}">
+        <h2> {{product.title}} </h2>
+
+        {% if product.image and product.image.url != '/media/temp.jpg' %}
+        <img src="{{ product.image.url }}" alt=" Картинка статьи блога"  width="300" height="200"/>
+        {% endif %}
+
+        <h4> {{product.price}} ₽ </h4>
+        <p> {{product.description}} </p>
+        <img src="{{product.image}}" alt="">
+        <select name="dropdown" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            {% for employer in employers %}
+                <option value="{{employer.id}}">{{employer.name}}</option>
+            {% endfor %}
+        </select>
+        {% if user.is_authenticated %}
+        <button type="submit">Купить</button>
+<!--            <a href="{% url 'catalog' product.pk 1 %}" class="btn btn-success">Купить</a>-->
+        {% endif %}
+    </form>
+</div>
+<hr/>
+{% endfor %}
+
+{% endblock %}

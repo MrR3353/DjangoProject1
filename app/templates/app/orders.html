@@ -1,0 +1,31 @@
+{% extends "app/layout.html" %}
+
+{% block orders %}
+<strong><u>
+{% endblock %}
+{% block orders_end %}
+</u></strong>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% for order in orders %}
+<div>
+    <h2>
+    {% for product in products_all %}
+        {% if product.pk == order.product_id %}
+            {{product.title}}
+        {% endif %}
+    {% endfor %}
+    </h2>
+    <h4> {{order.count}} </h4>
+    <p>{{order.price}}</p>
+    <p>Статус: {{order.status}}</p>
+</div>
+<hr/>
+{% endfor %}
+
+<h2>Итого: {{total}} </h2>
+
+{% endblock %}
